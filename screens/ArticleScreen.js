@@ -1,4 +1,4 @@
-import { StyleSheet, SafeAreaView, Text } from "react-native";
+import { StyleSheet, SafeAreaView } from "react-native";
 import { WebView } from 'react-native-webview';
 
 export const ArticleScreen = ({ route }) => {
@@ -6,6 +6,7 @@ export const ArticleScreen = ({ route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <WebView
+      // originWhitelist={['*']}
       source={{ uri: article.url }}
     />
     </SafeAreaView>

@@ -3,8 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome } from "@expo/vector-icons"
-import { store } from './store'
+import { store, persistor } from './store'
 import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react';
 import { HomeScreen } from './screens/HomeScreen';
 import { ArticleScreen } from './screens/ArticleScreen';
 import { ClipScreen } from './screens/ClipScreen';
@@ -48,12 +49,14 @@ const ClipStack = () => {
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Tab.Navigator screenOptions={screenOption}>
-          <Tab.Screen name="HomeTab" component={HomeStack} options={{ headerShown: false, title: "Home" }}/>
-          <Tab.Screen name="ClipTab" component={ClipStack} options={{ headerShown: false, title: "Clip" }}/>
-        </Tab.Navigator>
-      </NavigationContainer>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <Tab.Navigator screenOptions={screenOption}>
+            <Tab.Screen name="HomeTab" component={HomeStack} options={{ headerShown: false, title: "Home" }}/>
+            <Tab.Screen name="ClipTab" component={ClipStack} options={{ headerShown: false, title: "Clip" }}/>
+          </Tab.Navigator>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 }
